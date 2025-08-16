@@ -1,0 +1,11 @@
+[Unit]
+Description=Certdist Service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/opt/certdist server /etc/certdist/config.yaml
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

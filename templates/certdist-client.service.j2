@@ -1,0 +1,10 @@
+[Unit]
+Description=Certdist Client
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/opt/certdist client /etc/certdist/config.yaml
+
+[Install]
+WantedBy=multi-user.target

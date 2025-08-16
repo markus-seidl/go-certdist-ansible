@@ -1,0 +1,8 @@
+#SPDX-License-Identifier: MIT-0
+---
+# defaults file for go-certdist-ansible
+certdist_version: "1.0.0"
+certdist_mode: "server"  # can be 'server' or 'client'
+
+certdist_server_config: {}
+certdist_client_config: {}

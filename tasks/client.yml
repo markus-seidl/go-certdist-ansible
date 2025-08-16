@@ -1,0 +1,22 @@
+---
+- name: "Copy client config"
+  ansible.builtin.copy:
+    content: "{{ certdist_client_config | to_nice_yaml }}"
+    dest: /etc/certdist/config.yaml
+    mode: '0644'
+
+- name: "Install client systemd service and timer"
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "/etc/systemd/system/{{ item }}"
+    mode: '0644'
+  loop:
+    - certdist-client.service
+    - certdist.timer
+
+- name: "Enable and start client timer"
+  ansible.builtin.systemd:
+    name: certdist.timer
+    enabled: true
+    state: started
+    daemon_reload: true

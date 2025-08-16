@@ -1,0 +1,9 @@
+#SPDX-License-Identifier: MIT-0
+---
+# handlers file for go-certdist-ansible
+
+- name: Restart certdist
+  ansible.builtin.systemd:
+    name: certdist.service
+    state: restarted
+  when: certdist_mode == 'server'

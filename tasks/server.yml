@@ -1,0 +1,23 @@
+---
+- name: "Copy server config"
+  ansible.builtin.copy:
+    content: "{{ certdist_server_config | to_nice_yaml }}"
+    dest: /etc/certdist/config.yaml
+    mode: '0644'
+  notify:
+    - Restart certdist
+
+- name: "Install server systemd service"
+  ansible.builtin.template:
+    src: certdist-server.service.j2
+    dest: /etc/systemd/system/certdist.service
+    mode: '0644'
+  notify:
+    - Restart certdist
+
+- name: "Enable and start server service"
+  ansible.builtin.systemd:
+    name: certdist.service
+    enabled: true
+    state: started
+    daemon_reload: true
